@@ -1,80 +1,87 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import aboutImage from "@/assets/about-building.jpg";
 
-const AboutSection = () => {
-  const highlights = [
-    "Registered with PEC & relevant authorities",
-    "ISO certified quality management",
-    "Expert team of engineers & architects",
-    "18+ years of industry experience",
-  ];
+const services = [
+  {
+    icon: "/icons/architecture.svg",
+    title: "Architecture",
+  },
+  {
+    icon: "/icons/interior.svg", 
+    title: "Interior",
+  },
+  {
+    icon: "/icons/planning.svg",
+    title: "Planning",
+  },
+];
 
+const AboutSection = () => {
   return (
-    <section className="section-padding bg-background">
+    <section className="py-24 bg-background">
       <div className="container-custom">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Image Side */}
-          <div className="relative animate-slide-in-left">
-            <div className="relative z-10">
-              <img
-                src={aboutImage}
-                alt="Modern building architecture"
-                className="w-full h-[500px] object-cover rounded-lg shadow-xl"
-              />
-            </div>
-            {/* Decorative elements */}
-            <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-accent/20 rounded-lg z-0" />
-            <div className="absolute -top-6 -left-6 w-32 h-32 border-2 border-accent rounded-lg z-0" />
-            
-            {/* Experience Badge */}
-            <div className="absolute bottom-8 right-8 bg-accent text-accent-foreground p-6 rounded-lg shadow-xl z-20">
-              <div className="text-4xl font-serif font-bold">18+</div>
-              <div className="text-sm font-medium">Years of Excellence</div>
-            </div>
+          <div className="relative">
+            <img
+              src={aboutImage}
+              alt="Modern architecture"
+              className="w-full h-[550px] object-cover"
+            />
           </div>
 
           {/* Content Side */}
-          <div className="animate-slide-in-right">
-            <span className="text-accent font-semibold tracking-wider uppercase">
-              About Our Company
+          <div>
+            <span className="text-muted-foreground text-sm tracking-[0.2em] uppercase">
+              Who are we?
             </span>
             
-            <h2 className="heading-secondary text-foreground mt-3 mb-6">
-              Professional Construction & Engineering Solutions
+            <h2 className="text-4xl md:text-5xl font-serif text-foreground mt-4 mb-8">
+              About ArchSan
             </h2>
             
-            <p className="text-body mb-6">
-              ProConstruct is a leading construction and engineering company based in 
-              Pakistan, delivering integrated solutions from project planning to final 
-              handover. We specialize in residential, commercial, and infrastructure 
-              projects with a commitment to excellence.
+            <p className="text-muted-foreground leading-relaxed mb-6">
+              Architecture viverra tristique justo duis vitae diaminte neque nivamus 
+              aestan ateuene artines aringianu the ateliten finibus viverra nec in 
+              the nedana. Design nila iman the finise viverra nec a lacus themo the 
+              seneoice misuscipit drana miss non sagie the fermen.
             </p>
             
-            <p className="text-body mb-8">
-              Our team of experienced professionals combines innovative design with 
-              cutting-edge technology to deliver projects that exceed expectations. 
-              We take pride in our transparent approach, ensuring clients are involved 
-              at every stage of the construction process.
+            <p className="text-muted-foreground leading-relaxed mb-10">
+              Planner inilla duiman at elit finibus viverra a lacus themo the drudea 
+              seneoice misuscipit nonie the fermen miverration tristique jusio the 
+              ivite dianne onen nivami acsestion augue artine.
             </p>
 
-            {/* Highlights */}
-            <div className="grid sm:grid-cols-2 gap-4 mb-8">
-              {highlights.map((item, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
-                  <span className="text-foreground font-medium">{item}</span>
+            {/* Service Icons */}
+            <div className="flex gap-12">
+              <div className="text-center group cursor-pointer">
+                <div className="w-16 h-16 border border-accent/30 flex items-center justify-center mb-4 group-hover:border-accent transition-colors duration-300">
+                  <svg viewBox="0 0 24 24" className="w-8 h-8 text-accent" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" />
+                  </svg>
                 </div>
-              ))}
-            </div>
+                <h5 className="text-sm font-medium tracking-wide text-foreground">Architecture</h5>
+              </div>
 
-            <Button variant="gold" size="lg" asChild>
-              <Link to="/about">
-                Learn More About Us
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
+              <div className="text-center group cursor-pointer">
+                <div className="w-16 h-16 border border-accent/30 flex items-center justify-center mb-4 group-hover:border-accent transition-colors duration-300">
+                  <svg viewBox="0 0 24 24" className="w-8 h-8 text-accent" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M4 20h16M4 20V8l3-3h10l3 3v12M8 12h8M8 16h8" />
+                  </svg>
+                </div>
+                <h5 className="text-sm font-medium tracking-wide text-foreground">Interior</h5>
+              </div>
+
+              <div className="text-center group cursor-pointer">
+                <div className="w-16 h-16 border border-accent/30 flex items-center justify-center mb-4 group-hover:border-accent transition-colors duration-300">
+                  <svg viewBox="0 0 24 24" className="w-8 h-8 text-accent" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M9 17H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-4M12 17v4M8 21h8" />
+                  </svg>
+                </div>
+                <h5 className="text-sm font-medium tracking-wide text-foreground">Planning</h5>
+              </div>
+            </div>
           </div>
         </div>
       </div>
