@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
+  { name: "About", href: "/about" },
   { name: "Services", href: "/services" },
   { name: "Projects", href: "/projects" },
   { name: "Contact", href: "/contact" },
@@ -32,42 +31,49 @@ const Header = () => {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-md py-3"
-          : "bg-transparent py-5"
+          ? "bg-background/95 backdrop-blur-md py-4"
+          : "bg-transparent py-6"
       )}
     >
       <div className="container-custom flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-3 group">
           <div className={cn(
-            "w-10 h-10 rounded flex items-center justify-center font-serif font-bold text-lg transition-colors duration-300",
-            isScrolled ? "bg-primary text-primary-foreground" : "bg-accent text-accent-foreground"
+            "relative w-8 h-8 flex items-center justify-center transition-colors duration-300"
           )}>
-            PC
+            {/* Triangle Logo like Archsan */}
+            <svg 
+              viewBox="0 0 40 40" 
+              className={cn(
+                "w-full h-full transition-colors duration-300",
+                isScrolled ? "text-accent" : "text-accent"
+              )}
+              fill="currentColor"
+            >
+              <path d="M20 4L36 36H4L20 4Z" />
+            </svg>
           </div>
           <span className={cn(
-            "font-serif text-xl font-semibold transition-colors duration-300",
+            "font-sans text-xl font-semibold tracking-[0.2em] uppercase transition-colors duration-300",
             isScrolled ? "text-foreground" : "text-background"
           )}>
-            ProConstruct
+            ARCHSAN
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8">
+        {/* Desktop Navigation - Hidden, shown on menu open */}
+        <nav className="hidden lg:flex items-center gap-10">
           {navLinks.map((link) => (
             <Link
               key={link.name}
               to={link.href}
               className={cn(
-                "relative font-medium transition-colors duration-300 hover:text-accent",
+                "relative text-sm font-medium tracking-wide uppercase transition-colors duration-300",
                 location.pathname === link.href 
                   ? "text-accent" 
-                  : isScrolled ? "text-foreground" : "text-background",
-                "after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-all after:duration-300 hover:after:w-full",
-                location.pathname === link.href && "after:w-full"
+                  : isScrolled ? "text-foreground hover:text-accent" : "text-background hover:text-accent",
               )}
             >
               {link.name}
@@ -75,62 +81,58 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* CTA Button & Mobile Menu Toggle */}
-        <div className="flex items-center gap-4">
-          <Button 
-            variant={isScrolled ? "gold" : "hero"} 
-            size="lg" 
-            className="hidden md:flex"
-            asChild
-          >
-            <Link to="/contact">
-              <Phone className="w-4 h-4" />
-              Get a Free Consultation
-            </Link>
-          </Button>
-
-          <button
-            className="lg:hidden p-2"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? (
-              <X className={cn("w-6 h-6", isScrolled ? "text-foreground" : "text-background")} />
-            ) : (
-              <Menu className={cn("w-6 h-6", isScrolled ? "text-foreground" : "text-background")} />
-            )}
-          </button>
-        </div>
+        {/* Hamburger Menu Button */}
+        <button
+          className={cn(
+            "p-2 transition-colors duration-300",
+            isScrolled ? "text-foreground" : "text-background"
+          )}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <div className="flex flex-col gap-1.5">
+              <span className={cn("block w-6 h-0.5 transition-colors", isScrolled ? "bg-foreground" : "bg-background")} />
+              <span className={cn("block w-6 h-0.5 transition-colors", isScrolled ? "bg-foreground" : "bg-background")} />
+              <span className={cn("block w-4 h-0.5 transition-colors", isScrolled ? "bg-foreground" : "bg-background")} />
+            </div>
+          )}
+        </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Fullscreen Menu Overlay */}
       <div
         className={cn(
-          "lg:hidden fixed inset-x-0 top-[72px] bg-background shadow-lg transition-all duration-300 overflow-hidden",
-          isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          "fixed inset-0 bg-primary z-40 transition-all duration-500 flex items-center justify-center",
+          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         )}
       >
-        <nav className="container-custom py-6 flex flex-col gap-4">
-          {navLinks.map((link) => (
+        <button
+          className="absolute top-6 right-6 text-background p-2"
+          onClick={() => setIsMobileMenuOpen(false)}
+          aria-label="Close menu"
+        >
+          <X className="w-8 h-8" />
+        </button>
+
+        <nav className="flex flex-col items-center gap-8">
+          {navLinks.map((link, index) => (
             <Link
               key={link.name}
               to={link.href}
               className={cn(
-                "text-lg font-medium py-2 border-b border-border transition-colors duration-300",
-                location.pathname === link.href
-                  ? "text-accent"
-                  : "text-foreground hover:text-accent"
+                "text-4xl md:text-6xl font-serif text-background hover:text-accent transition-all duration-300",
+                "opacity-0 translate-y-4",
+                isMobileMenuOpen && "animate-fade-up"
               )}
+              style={{ animationDelay: `${index * 0.1}s` }}
+              onClick={() => setIsMobileMenuOpen(false)}
             >
               {link.name}
             </Link>
           ))}
-          <Button variant="gold" size="lg" className="mt-4" asChild>
-            <Link to="/contact">
-              <Phone className="w-4 h-4" />
-              Get a Free Consultation
-            </Link>
-          </Button>
         </nav>
       </div>
     </header>

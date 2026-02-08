@@ -5,29 +5,29 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 uppercase tracking-wider",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: "bg-primary text-primary-foreground hover:bg-brown-light",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        outline: "border border-primary/30 bg-transparent text-foreground hover:bg-primary hover:text-primary-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost: "hover:bg-accent/10 hover:text-accent",
         link: "text-primary underline-offset-4 hover:underline",
-        // Custom variants for construction theme
-        gold: "bg-accent text-accent-foreground hover:bg-gold-dark shadow-[0_4px_14px_0_hsl(38_92%_50%/0.3)] hover:shadow-lg font-semibold",
-        "gold-outline": "border-2 border-accent text-accent hover:bg-accent hover:text-accent-foreground font-semibold",
-        navy: "bg-primary text-primary-foreground hover:bg-navy-light font-semibold",
-        "navy-outline": "border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold",
-        hero: "bg-accent text-accent-foreground hover:bg-gold-dark shadow-[0_4px_14px_0_hsl(38_92%_50%/0.3)] hover:shadow-lg font-semibold text-base",
-        "hero-outline": "border-2 border-background text-background hover:bg-background hover:text-primary font-semibold text-base",
+        // Archsan theme variants
+        gold: "bg-accent text-accent-foreground hover:bg-gold-dark font-medium",
+        "gold-outline": "border border-accent text-accent hover:bg-accent hover:text-accent-foreground font-medium",
+        brown: "bg-primary text-primary-foreground hover:bg-brown-light font-medium",
+        "brown-outline": "border border-primary text-primary hover:bg-primary hover:text-primary-foreground font-medium",
+        hero: "bg-transparent border border-background/40 text-background hover:bg-background hover:text-primary font-medium",
+        "hero-solid": "bg-accent text-accent-foreground hover:bg-gold-dark font-medium",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        xl: "h-14 rounded-md px-10 text-base",
+        default: "h-11 px-6 py-2",
+        sm: "h-9 px-4",
+        lg: "h-12 px-8",
+        xl: "h-14 px-10 text-sm",
         icon: "h-10 w-10",
       },
     },
