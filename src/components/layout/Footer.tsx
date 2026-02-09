@@ -41,12 +41,12 @@ const Footer = () => {
                 <path d="M20 4L36 36H4L20 4Z" />
               </svg>
               <span className="font-sans text-xl font-semibold tracking-[0.2em] uppercase">
-                ARCHSAN
+                SIDCO
               </span>
             </div>
             <p className="text-primary-foreground/70 leading-relaxed text-sm">
-              A leading architecture and design firm delivering excellence in 
-              residential, commercial, and urban projects with modern vision.
+              A leading construction and engineering firm delivering excellence in 
+              residential, commercial, and infrastructure projects.
             </p>
             {/* Social Links */}
             <div className="flex gap-4">
@@ -123,8 +123,8 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-accent flex-shrink-0" />
-                <a href="mailto:info@archsan.com" className="text-primary-foreground/70 hover:text-accent transition-colors text-sm">
-                  info@archsan.com
+                <a href="mailto:info@sidco.pk" className="text-primary-foreground/70 hover:text-accent transition-colors text-sm">
+                  info@sidco.pk
                 </a>
               </li>
               <li className="flex items-start gap-3">
@@ -142,7 +142,7 @@ const Footer = () => {
       <div className="border-t border-primary-foreground/10">
         <div className="container-custom py-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-primary-foreground/50 text-sm">
-            © {currentYear} ArchSan. All rights reserved.
+            © {currentYear} SIDCO. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-primary-foreground/50">
             <a href="#" className="hover:text-accent transition-colors">Privacy Policy</a>

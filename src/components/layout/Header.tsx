@@ -59,7 +59,7 @@ const Header = () => {
             "font-sans text-xl font-semibold tracking-[0.2em] uppercase transition-colors duration-300",
             isScrolled ? "text-foreground" : "text-background"
           )}>
-            ARCHSAN
+            SIDCO
           </span>
         </Link>
 

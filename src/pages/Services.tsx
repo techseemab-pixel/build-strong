@@ -1,30 +1,11 @@
 import Layout from "@/components/layout/Layout";
 import PageHeader from "@/components/shared/PageHeader";
+import { Link } from "react-router-dom";
 import { 
-  Building2, 
-  ClipboardList, 
-  PenTool, 
-  Wrench, 
-  Paintbrush,
-  FileSearch,
-  Home,
-  Factory,
-  Building,
-  Key,
-  Calendar,
-  DollarSign,
-  HardHat,
-  Shield,
-  Ruler,
-  Hammer,
-  Palette,
-  Lightbulb,
-  Droplets,
-  Wind,
-  Truck,
-  FileText,
-  Briefcase,
-  RefreshCw
+  Building2, ClipboardList, PenTool, Wrench, Paintbrush, FileSearch,
+  Home, Factory, Building, Key, Calendar, DollarSign, HardHat, Shield,
+  Ruler, Hammer, Palette, Lightbulb, Droplets, Wind, Truck, FileText, 
+  Briefcase, RefreshCw
 } from "lucide-react";
 
 const serviceCategories = [
@@ -36,7 +17,7 @@ const serviceCategories = [
       { icon: Home, name: "Residential Construction" },
       { icon: Building, name: "Commercial Buildings" },
       { icon: Factory, name: "Industrial Structures" },
-      { icon: Key, name: "Turnkey Construction Solutions" },
+      { icon: Key, name: "Turnkey Solutions" },
     ],
   },
   {
@@ -47,18 +28,18 @@ const serviceCategories = [
       { icon: Calendar, name: "Planning & Scheduling" },
       { icon: DollarSign, name: "Cost Estimation" },
       { icon: HardHat, name: "Site Supervision" },
-      { icon: Shield, name: "Quality & Safety Management" },
+      { icon: Shield, name: "Quality & Safety" },
     ],
   },
   {
     icon: PenTool,
-    title: "Architectural & Structural Works",
+    title: "Architectural & Structural",
     description: "Creative design and robust structural solutions for every project.",
     services: [
       { icon: Ruler, name: "Architectural Planning" },
-      { icon: Building2, name: "Structural Design Coordination" },
+      { icon: Building2, name: "Structural Design" },
       { icon: Hammer, name: "Renovation & Remodeling" },
-      { icon: Palette, name: "Interior & Exterior Works" },
+      { icon: Palette, name: "Interior & Exterior" },
     ],
   },
   {
@@ -69,7 +50,7 @@ const serviceCategories = [
       { icon: Lightbulb, name: "Electrical Systems" },
       { icon: Droplets, name: "Plumbing Solutions" },
       { icon: Wind, name: "HVAC Systems" },
-      { icon: Truck, name: "Infrastructure Development" },
+      { icon: Truck, name: "Infrastructure Dev." },
     ],
   },
   {
@@ -79,13 +60,13 @@ const serviceCategories = [
     services: [
       { icon: FileText, name: "Feasibility Studies" },
       { icon: Briefcase, name: "Technical Consultancy" },
-      { icon: ClipboardList, name: "Construction Documentation" },
-      { icon: RefreshCw, name: "Renovation & Upgrade Projects" },
+      { icon: ClipboardList, name: "Documentation" },
+      { icon: RefreshCw, name: "Renovation Projects" },
     ],
   },
   {
     icon: Paintbrush,
-    title: "Renovation & Interior Works",
+    title: "Renovation & Interior",
     description: "Transform spaces with our expert renovation and interior services.",
     services: [
       { icon: Home, name: "Residential Renovation" },
@@ -105,54 +86,34 @@ const Services = () => {
         breadcrumb="What We Do"
       />
 
-      {/* Services Grid */}
-      <section className="section-padding bg-background">
+      {/* Services Grid - Archsan style */}
+      <section className="py-24 bg-background">
         <div className="container-custom">
-          <div className="space-y-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
             {serviceCategories.map((category, index) => (
               <div
                 key={index}
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
-                  index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                }`}
+                className="bg-background p-10 group hover:bg-primary transition-all duration-500 cursor-pointer"
               >
-                {/* Content */}
-                <div className={index % 2 === 1 ? "lg:order-2" : ""}>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-14 h-14 bg-accent/10 rounded-lg flex items-center justify-center">
-                      <category.icon className="w-7 h-7 text-accent" />
-                    </div>
-                    <h2 className="heading-tertiary text-foreground">
-                      {category.title}
-                    </h2>
-                  </div>
-                  <p className="text-body mb-8">{category.description}</p>
-                  
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {category.services.map((service, sIndex) => (
-                      <div
-                        key={sIndex}
-                        className="flex items-center gap-3 p-4 bg-slate-light rounded-lg hover:bg-accent/10 transition-colors duration-300"
-                      >
-                        <service.icon className="w-5 h-5 text-accent flex-shrink-0" />
-                        <span className="font-medium text-foreground">{service.name}</span>
-                      </div>
-                    ))}
-                  </div>
+                <div className="w-16 h-16 border border-accent/30 flex items-center justify-center mb-6 group-hover:border-accent transition-colors duration-300">
+                  <category.icon className="w-8 h-8 text-accent" />
                 </div>
-
-                {/* Visual Card */}
-                <div className={`${index % 2 === 1 ? "lg:order-1" : ""}`}>
-                  <div className="bg-gradient-to-br from-primary to-navy-dark p-12 rounded-2xl text-center">
-                    <category.icon className="w-24 h-24 text-accent mx-auto mb-6" />
-                    <h3 className="font-serif text-2xl font-semibold text-primary-foreground mb-4">
-                      {category.title}
-                    </h3>
-                    <p className="text-primary-foreground/80">
-                      Professional services backed by years of experience and expertise.
-                    </p>
-                  </div>
-                </div>
+                <h3 className="font-serif text-2xl text-foreground group-hover:text-primary-foreground mb-4 transition-colors duration-300">
+                  {category.title}
+                </h3>
+                <p className="text-muted-foreground group-hover:text-primary-foreground/70 mb-6 text-sm leading-relaxed transition-colors duration-300">
+                  {category.description}
+                </p>
+                <ul className="space-y-3">
+                  {category.services.map((service, sIndex) => (
+                    <li key={sIndex} className="flex items-center gap-3">
+                      <service.icon className="w-4 h-4 text-accent flex-shrink-0" />
+                      <span className="text-sm text-muted-foreground group-hover:text-primary-foreground/80 transition-colors duration-300">
+                        {service.name}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
@@ -160,39 +121,53 @@ const Services = () => {
       </section>
 
       {/* Process Section */}
-      <section className="section-padding bg-slate-light">
+      <section className="py-24 bg-primary">
         <div className="container-custom">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-accent font-semibold tracking-wider uppercase">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-primary-foreground/60 text-sm tracking-[0.2em] uppercase">
               Our Process
             </span>
-            <h2 className="heading-secondary text-foreground mt-3 mb-4">
+            <h2 className="text-4xl md:text-5xl font-serif text-primary-foreground mt-4">
               How We Work
             </h2>
-            <div className="section-divider" />
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-4 gap-px">
             {[
               { step: "01", title: "Consultation", desc: "Understanding your requirements and vision" },
               { step: "02", title: "Planning", desc: "Detailed project planning and design" },
               { step: "03", title: "Execution", desc: "Quality construction with regular updates" },
               { step: "04", title: "Delivery", desc: "On-time handover with complete documentation" },
             ].map((item, index) => (
-              <div key={index} className="text-center relative">
-                <div className="w-20 h-20 bg-accent text-accent-foreground rounded-full flex items-center justify-center mx-auto mb-6 font-serif text-2xl font-bold">
+              <div key={index} className="text-center p-8 border border-primary-foreground/10">
+                <span className="text-5xl font-serif text-accent mb-4 block">
                   {item.step}
-                </div>
-                {index < 3 && (
-                  <div className="hidden md:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-accent/30" />
-                )}
-                <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
+                </span>
+                <h3 className="font-serif text-xl text-primary-foreground mb-3">
                   {item.title}
                 </h3>
-                <p className="text-muted-foreground">{item.desc}</p>
+                <p className="text-primary-foreground/60 text-sm">{item.desc}</p>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 bg-secondary">
+        <div className="container-custom text-center">
+          <h2 className="text-4xl md:text-5xl font-serif text-foreground mb-6">
+            Ready to Start Your Project?
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto mb-10">
+            Contact us today for a free consultation and let's discuss how we can bring your vision to life.
+          </p>
+          <Link
+            to="/contact"
+            className="inline-block px-10 py-4 bg-accent text-accent-foreground text-sm tracking-[0.2em] uppercase hover:bg-accent/90 transition-colors duration-300"
+          >
+            Get In Touch
+          </Link>
         </div>
       </section>
     </Layout>

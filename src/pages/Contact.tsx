@@ -4,61 +4,30 @@ import PageHeader from "@/components/shared/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import heroImage from "@/assets/hero-construction.jpg";
+
+const contactInfo = [
+  { icon: MapPin, title: "Office Address", details: ["Office 401, Business Plaza,", "Blue Area, Islamabad"] },
+  { icon: Phone, title: "Phone Number", details: ["+92 51 987 6543", "+92 300 1234567"] },
+  { icon: Mail, title: "Email Address", details: ["info@sidco.pk", "sales@sidco.pk"] },
+  { icon: Clock, title: "Business Hours", details: ["Mon - Sat: 9:00 AM - 6:00 PM", "Sunday: Closed"] },
+];
 
 const Contact = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Message Sent Successfully!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    
+    await new Promise((r) => setTimeout(r, 1000));
+    toast({ title: "Message Sent!", description: "We'll get back to you within 24 hours." });
     setFormData({ name: "", email: "", phone: "", message: "" });
     setIsSubmitting(false);
   };
-
-  const contactInfo = [
-    {
-      icon: MapPin,
-      title: "Office Address",
-      details: ["Office 401, Business Plaza,", "Blue Area, Islamabad, Pakistan"],
-    },
-    {
-      icon: Phone,
-      title: "Phone Number",
-      details: ["+92 51 987 6543", "+92 300 1234567"],
-    },
-    {
-      icon: Mail,
-      title: "Email Address",
-      details: ["info@proconstruct.pk", "sales@proconstruct.pk"],
-    },
-    {
-      icon: Clock,
-      title: "Business Hours",
-      details: ["Monday - Saturday: 9:00 AM - 6:00 PM", "Sunday: Closed"],
-    },
-  ];
 
   return (
     <Layout>
@@ -68,160 +37,86 @@ const Contact = () => {
         breadcrumb="Get In Touch"
       />
 
-      <section className="section-padding bg-background">
+      {/* Contact Info Cards */}
+      <section className="py-24 bg-background">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-5 gap-12">
-            {/* Contact Info */}
-            <div className="lg:col-span-2">
-              <span className="text-accent font-semibold tracking-wider uppercase">
-                Contact Information
-              </span>
-              <h2 className="heading-tertiary text-foreground mt-3 mb-8">
-                Let's Discuss Your Project
-              </h2>
-
-              <div className="space-y-6">
-                {contactInfo.map((item, index) => (
-                  <div
-                    key={index}
-                    className="flex gap-4 p-4 bg-slate-light rounded-lg"
-                  >
-                    <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <item.icon className="w-6 h-6 text-accent" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground mb-1">
-                        {item.title}
-                      </h3>
-                      {item.details.map((detail, dIndex) => (
-                        <p key={dIndex} className="text-muted-foreground text-sm">
-                          {detail}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-border mb-24">
+            {contactInfo.map((item, index) => (
+              <div key={index} className="bg-background p-8 text-center group hover:bg-primary transition-all duration-500">
+                <div className="w-14 h-14 border border-accent/30 flex items-center justify-center mx-auto mb-4 group-hover:border-accent transition-colors duration-300">
+                  <item.icon className="w-6 h-6 text-accent" />
+                </div>
+                <h3 className="font-serif text-lg text-foreground group-hover:text-primary-foreground mb-3 transition-colors duration-300">
+                  {item.title}
+                </h3>
+                {item.details.map((d, i) => (
+                  <p key={i} className="text-sm text-muted-foreground group-hover:text-primary-foreground/70 transition-colors duration-300">
+                    {d}
+                  </p>
                 ))}
               </div>
-
-              {/* Map Placeholder */}
-              <div className="mt-8 h-64 bg-slate-light rounded-lg flex items-center justify-center">
-                <div className="text-center text-muted-foreground">
-                  <MapPin className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                  <p>Map Integration</p>
-                  <p className="text-sm">Blue Area, Islamabad</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Contact Form */}
-            <div className="lg:col-span-3">
-              <div className="bg-slate-light p-8 md:p-12 rounded-2xl">
-                <span className="text-accent font-semibold tracking-wider uppercase">
-                  Send a Message
-                </span>
-                <h2 className="heading-tertiary text-foreground mt-3 mb-8">
-                  Submit Your Inquiry
-                </h2>
-
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Full Name *
-                      </label>
-                      <Input
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Your full name"
-                        required
-                        className="h-12"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-foreground mb-2">
-                        Email Address *
-                      </label>
-                      <Input
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="your@email.com"
-                        required
-                        className="h-12"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Phone Number
-                    </label>
-                    <Input
-                      name="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="+92 XXX XXXXXXX"
-                      className="h-12"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      Message *
-                    </label>
-                    <Textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Tell us about your project requirements..."
-                      required
-                      rows={6}
-                      className="resize-none"
-                    />
-                  </div>
-
-                  <Button 
-                    type="submit" 
-                    variant="gold" 
-                    size="xl" 
-                    className="w-full md:w-auto"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      "Sending..."
-                    ) : (
-                      <>
-                        <Send className="w-5 h-5" />
-                        Submit Your Inquiry
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Banner */}
-      <section className="py-16 bg-accent">
-        <div className="container-custom text-center">
-          <h2 className="font-serif text-3xl font-bold text-accent-foreground mb-4">
-            Prefer to Talk Directly?
-          </h2>
-          <p className="text-accent-foreground/80 mb-6">
-            Call us now for immediate assistance with your project inquiries.
-          </p>
-          <a
-            href="tel:+92519876543"
-            className="inline-flex items-center gap-2 text-2xl font-bold text-accent-foreground hover:underline"
-          >
-            <Phone className="w-6 h-6" />
-            +92 51 987 6543
-          </a>
+      {/* Contact Form with BG */}
+      <section className="relative py-24">
+        <div className="absolute inset-0 z-0">
+          <img src={heroImage} alt="Contact background" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-primary/85" />
+        </div>
+        <div className="container-custom relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="text-primary-foreground/60 text-sm tracking-[0.2em] uppercase">
+                Contact Us
+              </span>
+              <h2 className="text-4xl md:text-5xl font-serif text-primary-foreground mt-4 mb-6">
+                Let's discuss your project
+              </h2>
+              <p className="text-primary-foreground/70 leading-relaxed">
+                Fill out the form and our team will contact you for a free consultation.
+              </p>
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <Input
+                  placeholder="Your Name *"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
+                  className="bg-transparent border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 h-14 focus:border-accent"
+                />
+                <Input
+                  type="email"
+                  placeholder="Email *"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                  className="bg-transparent border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 h-14 focus:border-accent"
+                />
+              </div>
+              <Input
+                type="tel"
+                placeholder="Phone"
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                className="bg-transparent border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 h-14 focus:border-accent"
+              />
+              <Textarea
+                placeholder="Message *"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                required
+                rows={5}
+                className="bg-transparent border-primary-foreground/30 text-primary-foreground placeholder:text-primary-foreground/50 resize-none focus:border-accent"
+              />
+              <Button type="submit" variant="gold" size="lg" disabled={isSubmitting}>
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </Button>
+            </form>
+          </div>
         </div>
       </section>
     </Layout>
