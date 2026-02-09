@@ -1,84 +1,31 @@
 import { useState } from "react";
 import Layout from "@/components/layout/Layout";
 import PageHeader from "@/components/shared/PageHeader";
-import { MapPin } from "lucide-react";
 
 import projectResidential from "@/assets/project-residential.jpg";
 import projectCommercial from "@/assets/project-commercial.jpg";
 import projectInfrastructure from "@/assets/project-infrastructure.jpg";
 import projectRenovation from "@/assets/project-renovation.jpg";
+import heroImage from "@/assets/hero-construction.jpg";
+import aboutImage from "@/assets/about-building.jpg";
 
 const projects = [
-  {
-    id: 1,
-    image: projectCommercial,
-    title: "Corporate Business Tower",
-    category: "Commercial",
-    status: "Completed",
-    location: "Blue Area, Islamabad",
-    year: "2023",
-    description: "A 15-story modern commercial tower featuring state-of-the-art office spaces, conference facilities, and underground parking.",
-  },
-  {
-    id: 2,
-    image: projectResidential,
-    title: "Bahria Heights Residency",
-    category: "Residential",
-    status: "Completed",
-    location: "Bahria Town, Lahore",
-    year: "2022",
-    description: "Luxury residential complex with 200+ apartments, modern amenities, landscaped gardens, and 24/7 security.",
-  },
-  {
-    id: 3,
-    image: projectInfrastructure,
-    title: "Margalla Highway Interchange",
-    category: "Infrastructure",
-    status: "Ongoing",
-    location: "Islamabad",
-    year: "2024",
-    description: "Major infrastructure project connecting key arterial roads with modern traffic management systems.",
-  },
-  {
-    id: 4,
-    image: projectRenovation,
-    title: "Pearl Continental Renovation",
-    category: "Renovation",
-    status: "Completed",
-    location: "Rawalpindi",
-    year: "2023",
-    description: "Complete renovation of a luxury hotel including interior redesign, MEP upgrades, and facade enhancement.",
-  },
-  {
-    id: 5,
-    image: projectCommercial,
-    title: "Tech Park Complex",
-    category: "Commercial",
-    status: "Completed",
-    location: "DHA Phase 2, Karachi",
-    year: "2022",
-    description: "Modern IT park with multiple office blocks, co-working spaces, and smart building features.",
-  },
-  {
-    id: 6,
-    image: projectResidential,
-    title: "Garden City Villas",
-    category: "Residential",
-    status: "Ongoing",
-    location: "Gujranwala",
-    year: "2024",
-    description: "Premium villa community with 50+ units featuring contemporary design and sustainable features.",
-  },
+  { image: projectCommercial, code: "PROJECT P.01", title: "Corporate Business Tower", category: "commercial" },
+  { image: projectResidential, code: "PROJECT P.02", title: "Bahria Heights Residency", category: "residential" },
+  { image: projectInfrastructure, code: "PROJECT P.03", title: "Margalla Highway Interchange", category: "infrastructure" },
+  { image: projectRenovation, code: "PROJECT P.04", title: "Pearl Continental Renovation", category: "renovation" },
+  { image: heroImage, code: "PROJECT P.05", title: "Tech Park Complex", category: "commercial" },
+  { image: aboutImage, code: "PROJECT P.06", title: "Garden City Villas", category: "residential" },
 ];
 
-const categories = ["All", "Commercial", "Residential", "Infrastructure", "Renovation"];
+const filters = ["All", "Commercial", "Residential", "Infrastructure", "Renovation"];
 
 const Projects = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [activeFilter, setActiveFilter] = useState("All");
 
-  const filteredProjects = activeCategory === "All" 
-    ? projects 
-    : projects.filter(p => p.category === activeCategory);
+  const filteredProjects = activeFilter === "All"
+    ? projects
+    : projects.filter((p) => p.category === activeFilter.toLowerCase());
 
   return (
     <Layout>
@@ -88,66 +35,45 @@ const Projects = () => {
         breadcrumb="Portfolio"
       />
 
-      {/* Filter Tabs */}
-      <section className="py-8 bg-background border-b border-border">
+      {/* Filter + Grid */}
+      <section className="py-24 bg-background">
         <div className="container-custom">
-          <div className="flex flex-wrap justify-center gap-4">
-            {categories.map((category) => (
+          {/* Filter Tabs */}
+          <div className="flex justify-center gap-8 mb-16">
+            {filters.map((filter) => (
               <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
-                  activeCategory === category
-                    ? "bg-accent text-accent-foreground"
-                    : "bg-slate-light text-foreground hover:bg-accent/20"
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`text-sm tracking-wide transition-colors duration-300 pb-2 border-b-2 ${
+                  activeFilter === filter
+                    ? "text-foreground border-accent"
+                    : "text-muted-foreground border-transparent hover:text-foreground"
                 }`}
               >
-                {category}
+                {filter}
               </button>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Projects Grid */}
-      <section className="section-padding bg-slate-light">
-        <div className="container-custom">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project) => (
-              <div
-                key={project.id}
-                className="group bg-background rounded-xl overflow-hidden shadow-md hover-lift"
-              >
-                <div className="aspect-[4/3] overflow-hidden relative">
+          {/* Projects Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((project, index) => (
+              <div key={index} className="group relative overflow-hidden cursor-pointer">
+                <div className="aspect-[4/5] overflow-hidden">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="px-3 py-1 bg-accent text-accent-foreground text-xs font-semibold rounded-full">
-                      {project.category}
-                    </span>
-                    <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                      project.status === "Ongoing"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-background text-foreground"
-                    }`}>
-                      {project.status}
-                    </span>
-                  </div>
                 </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-muted-foreground text-sm mb-2">
-                    <MapPin className="w-4 h-4" />
-                    {project.location} • {project.year}
-                  </div>
-                  <h3 className="font-serif text-xl font-semibold text-foreground mb-3">
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <span className="text-primary-foreground/70 text-xs tracking-[0.2em] uppercase">
+                    {project.code}
+                  </span>
+                  <h3 className="text-xl font-serif text-primary-foreground mt-2">
                     {project.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm line-clamp-2">
-                    {project.description}
-                  </p>
                 </div>
               </div>
             ))}
@@ -155,8 +81,8 @@ const Projects = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-primary">
+      {/* Stats */}
+      <section className="py-20 bg-primary">
         <div className="container-custom">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
@@ -166,10 +92,12 @@ const Projects = () => {
               { value: "200+", label: "Happy Clients" },
             ].map((stat, index) => (
               <div key={index}>
-                <div className="text-4xl md:text-5xl font-serif font-bold text-accent mb-2">
+                <div className="text-4xl md:text-5xl font-serif text-accent mb-2">
                   {stat.value}
                 </div>
-                <div className="text-primary-foreground/80">{stat.label}</div>
+                <div className="text-primary-foreground/70 text-sm tracking-wide">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>

@@ -37,7 +37,7 @@ const AboutSection = () => {
             </span>
             
             <h2 className="text-4xl md:text-5xl font-serif text-foreground mt-4 mb-8">
-              About ArchSan
+              About SIDCO
             </h2>
             
             <p className="text-muted-foreground leading-relaxed mb-6">

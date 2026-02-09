@@ -1,3 +1,5 @@
+import heroImage from "@/assets/hero-construction.jpg";
+
 interface PageHeaderProps {
   title: string;
   subtitle?: string;
@@ -6,31 +8,28 @@ interface PageHeaderProps {
 
 const PageHeader = ({ title, subtitle, breadcrumb }: PageHeaderProps) => {
   return (
-    <section className="relative bg-primary pt-32 pb-20 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent rounded-full -translate-y-1/2 translate-x-1/4" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent rounded-full translate-y-1/2 -translate-x-1/4" />
+    <section className="relative pt-32 pb-24 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 z-0">
+        <img src={heroImage} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-primary/80" />
       </div>
 
       <div className="container-custom relative z-10">
         {breadcrumb && (
-          <p className="text-accent font-medium tracking-wider uppercase mb-4">
+          <span className="text-primary-foreground/60 text-sm tracking-[0.2em] uppercase mb-4 block">
             {breadcrumb}
-          </p>
+          </span>
         )}
-        
-        <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-4">
+        <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-primary-foreground mb-4">
           {title}
         </h1>
-        
         {subtitle && (
-          <p className="text-primary-foreground/80 text-lg md:text-xl max-w-2xl">
+          <p className="text-primary-foreground/70 text-lg max-w-2xl">
             {subtitle}
           </p>
         )}
-        
-        <div className="w-20 h-1 bg-accent mt-6" />
+        <div className="w-20 h-0.5 bg-accent mt-6" />
       </div>
     </section>
   );
